@@ -6,20 +6,19 @@ import contactsReducer from "./contactsSlice";
 
 const contactsPersistConfig = {
     key: "contacts",
-    storage,
-    blacklist: ["filter"],
+    storage,    
     whitelist: ["items"],
 };
 
-export const persistor = persistStore(store);
 export const store = configureStore({
     reducer: {
         contacts: persistReducer(contactsPersistConfig, contactsReducer),
-        filter: filterReducer,
+        filters: filterReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: {
-            ignoreActions:[FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+            ignoredActions:[FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
     }),
 });
+export const persistor = persistStore(store);
